@@ -870,6 +870,18 @@ require('lazy').setup({
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
+  --  { -- Copilot --
+  --    'github/copilot.vim',
+  --    event = 'InsertEnter',
+  --    init = function()
+  --      vim.g.copilot_no_tab_map = true
+  --    end,
+  --    config = function()
+  --      vim.cmd 'Copilot setup'
+  --      -- Map Ctrl-J to accept suggestion
+  --      vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("<CR>")', { silent = true, expr = true })
+  --    end,
+  --  },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -884,8 +896,9 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'plugins.copilotchat', -- adds copilot chat keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
@@ -895,26 +908,26 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
   -- Everything behind this line is my own usage
   -- Keywords: PhiNguyen
-  {
-    'nvim-tree/nvim-tree.lua',
-    version = '*',
-    lazy = false,
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function()
-      local function my_on_attach(bufnr)
-        local api = require 'nvim-tree.api'
-        -- default mappings
-        api.config.mappings.default_on_attach(bufnr)
-      end
-      require('nvim-tree').setup {
-        on_attach = my_on_attach,
-      }
-      -- vim.keymap.set('n', '<leader>N', api.tree.change_root_to_parent, { desc = 'Open nvim-tree' })
-      vim.keymap.set('n', '<leader>]', '<cmd>NvimTreeOpen<CR>')
-    end,
-  },
+  --  {
+  --    'nvim-tree/nvim-tree.lua',
+  --    version = '*',
+  --    lazy = false,
+  --    dependencies = {
+  --      'nvim-tree/nvim-web-devicons',
+  --    },
+  --    config = function()
+  --      local function my_on_attach(bufnr)
+  --        local api = require 'nvim-tree.api'
+  --        -- default mappings
+  --        api.config.mappings.default_on_attach(bufnr)
+  --      end
+  --      require('nvim-tree').setup {
+  --        on_attach = my_on_attach,
+  --      }
+  --      -- vim.keymap.set('n', '<leader>N', api.tree.change_root_to_parent, { desc = 'Open nvim-tree' })
+  --      vim.keymap.set('n', '<leader>]', '<cmd>NvimTreeOpen<CR>')
+  --    end,
+  --  },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -939,3 +952,6 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.statuscolumn = '%s %l %r'
